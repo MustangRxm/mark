@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--<settings>-->
+        <!--&lt;!&ndash; Globally enables or disables any caches configured in any mapper under this configuration &ndash;&gt;-->
+        <!--<setting name="cacheEnabled" value="true"/>-->
+        <!--&lt;!&ndash; Sets the number of seconds the driver will wait for a response from the database &ndash;&gt;-->
+        <!--<setting name="defaultStatementTimeout" value="3000"/>-->
+        <!--&lt;!&ndash; Enables automatic mapping from classic database column names A_COLUMN to camel case classic Java property names aColumn &ndash;&gt;-->
+        <!--<setting name="mapUnderscoreToCamelCase" value="true"/>-->
+        <!--&lt;!&ndash; Allows JDBC support for generated keys. A compatible driver is required.-->
+        <!--This setting forces generated keys to be used if set to true,-->
+         <!--as some drivers deny compatibility but still work &ndash;&gt;-->
+        <!--<setting name="useGeneratedKeys" value="true"/>-->
+    <!--</settings>-->
+
+    <!-- Continue going here -->
+    <plugins>
+        <!-- 配置分页助手 -->
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <property name="dialect" value="mysql" />
+            <!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+            <property name="rowBoundsWithCount" value="true" />
+        </plugin>
+
+        <!-- 通用Mapper -->
+        <!--<plugin interceptor="com.github.abel533.mapperhelper.MapperInterceptor">-->
+            <!--&lt;!&ndash;主键自增回写方法,默认值MYSQL,详细说明请看文档 &ndash;&gt;-->
+            <!--<property name="IDENTITY" value="MYSQL" />-->
+            <!--&lt;!&ndash;通用Mapper接口，多个通用接口用逗号隔开 &ndash;&gt;-->
+            <!--<property name="mappers" value="com.github.abel533.mapper.Mapper" />-->
+        <!--</plugin>-->
+    </plugins>
+
+</configuration>

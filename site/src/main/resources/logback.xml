@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="30 seconds" >
+    <property name="logDir" value="d:/log"/>
+    <property name="projectName" value="sonico"/>
+    <property name="pattern_default" value="%date [%thread] %r %-5level - %msg%n"></property>
+    <timestamp key="byDay" datePattern="yyyy-MM-dd"/>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>${pattern_default}</Pattern>
+        </encoder>
+        <Encoding>UTF-8</Encoding>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </layout>
+    </appender>
+    <appender name="all_error" class="ch.qos.logback.core.FileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <File>${logDir}/${projectName}/error_${byDay}.log</File>
+        <append>true</append>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${pattern_default}</Pattern>
+        </layout>
+    </appender>
+    <appender name="all_info" class="ch.qos.logback.core.FileAppender">
+        <!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+            <!--<level>INFO</level>-->
+        <!--</filter>-->
+        <!--等级过滤器-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <File>${logDir}/${projectName}/info_${byDay}.log</File>
+        <append>true</append>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${pattern_default}</Pattern>
+        </layout>
+    </appender>
+    <appender name="all_debug" class="ch.qos.logback.core.FileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+            <!--<level>DEBUG</level>-->
+        <!--</filter>-->
+        <!--此处设定的文件名称是动态设置的  即每天生成一个文件用于记录当天的文件信息-->
+        <file>${logDir}/${projectName}/debug_${byDay}.log</file>
+        <append>true</append>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${pattern_default}</Pattern>
+        </layout>
+    </appender>
+    <logger name="debug" level="DEBUG">
+        <appender-ref ref="all_debug" />
+        <appender-ref ref="stdout"/>
+    </logger>
+    <!--屏蔽框架日志输出-->
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.springframework" level="WARN"/>
+
+    <!--<appender name="all_exception" class="ch.qos.logback.core.FileAppender">-->
+        <!--&lt;!&ndash;此处设定的文件名称是动态设置的  即每天生成一个文件用于记录当天的异常信息&ndash;&gt;-->
+        <!--<file>${logDir}/${projectName}/exception_${byDay}.log</file>-->
+        <!--<append>true</append>-->
+        <!--<layout class="ch.qos.logback.classic.PatternLayout">-->
+            <!--<Pattern>%date [%thread] %-5level %L  %logger{80} - %msg%n</Pattern>-->
+        <!--</layout>-->
+    <!--</appender>-->
+    <!--<logger name="exception" level="ERROR">-->
+        <!--<appender-ref ref="all_exception" />-->
+        <!--<appender-ref ref="stdout"/>-->
+    <!--</logger>-->
+
+    <!--<logger name="org.springframework.*" level="ERROR"/>-->
+<!--当没有相对应的logger，就默认执行root-->
+    <root >
+        <appender-ref ref="all_info" level="info" />
+        <appender-ref ref="all_error" level="ERROR"/>
+        <appender-ref ref="all_debug" level="DEBUG"/>
+        <!--<appender-ref ref="exception" level="ERROR"/>-->
+        <appender-ref ref="stdout" />
+    </root>
+</configuration>

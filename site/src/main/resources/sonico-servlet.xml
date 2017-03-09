@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!--<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
+		<!--&lt;!&ndash;关于pool的设置值要大于1，不然异步没有效果&ndash;&gt;-->
+		<!--<property name="corePoolSize" value="5"/>-->
+		<!--<property name="maxPoolSize" value="50"/>-->
+		<!--<property name="queueCapacity" value="1000"/>-->
+		<!--<property name="keepAliveSeconds" value="60"/>-->
+	<!--</bean>-->
+
+	<!-- executor -->
+	<!--<task:executor id="executor" pool-size="10"/>-->
+
+	<!--&lt;!&ndash; 任务调度器&ndash;&gt;-->
+	<!--<task:scheduler id="scheduler" pool-size="10"/>-->
+
+	<!--<task:annotation-driven scheduler="scheduler" executor="executor"/>-->
+
+	<!-- 定义注解驱动 -->
+	<mvc:annotation-driven>
+
+	<mvc:async-support default-timeout="100000"/>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>multipart/form-data</value>
+						<value>text/html;charset=UTF-8</value>
+						<value>text/plain;charset=UTF-8</value>
+						<value>application/json;charset=UTF-8</value>
+						<value>application/x-www-form-urlencoded;charset=utf-8</value>
+					</list>
+				</property>
+			</bean>
+			<!--
+            <bean
+                class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+                <property name="messageConverters">
+                    <list>
+                        <bean id="utf8StringHttpMessageConverter" class="com.kenfor.util.UTF8StringHttpMessageConverter"></bean>
+                        <bean id="mappingJacksonHttpMessageConverter"
+                            class="org.springframework.http.converter.StringHttpMessageConverter">
+                            <property name="supportedMediaTypes">
+                                <list>
+
+                                </list>
+                            </property>
+                        </bean>
+                    </list>
+                </property>
+            </bean>  -->
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 定义Controller的扫描包 -->
+	<context:component-scan base-package="me.sonico"/>
+
+	<!--https://my.oschina.net/gxchan/blog/651301-->
+	<context:property-placeholder location="classpath:test.properties" ignore-unresolvable="true" />
+	<!--<context:component-scan base-package="me.sonico.utils"/>-->
+
+	<!-- 定义试图解析器 -->
+	<!-- 
+		Example: prefix="/WEB-INF/jsp/", suffix=".jsp", viewname="test" -> "/WEB-INF/jsp/test.jsp"
+		当controller方法中，不带有@ResponseBody，并且controller直接返回字符串时，将会在 prefix+返回名字+suffix 路径下找返回页面
+		当带@ResponseBody ，如果返回字符串，将直接将字符串返回到页面
+	 -->
+	<!-- 配置 文件上传的支持 -->
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1024000000" /><!-- 最大1G -->
+		<property name="resolveLazily" value="true" />
+		<property name="maxInMemorySize" value="4096" />
+		<property name="uploadTempDir" value="/"/>
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+
+<!--并且需要注意，因为现在spring配置文件分开了配置，加载sonico-servlet.xml与其他spring.xml文件是有顺序的，优先加载sonico-servlet.xml-->
+	<!--aop的定义是有序的 http://jinnianshilongnian.iteye.com/blog/1418598-->
+	<!--http://www.jianshu.com/p/8b95db8d7a1f-->
+	<!--http://sishuok.com/forum/posts/list/281.html-->
+	<!--http://blog.csdn.net/qwe6112071/article/details/50962440-->
+	<!--http://jinnianshilongnian.iteye.com/blog/1752171-->
+	<!--基于schema的aop-->
+	<!--<bean id="exceptionAspect"-->
+		  <!--class="ExceptionAspect"/>-->
+	<!--<aop:config>-->
+		<!--<aop:pointcut  id="perform" expression="execution(* me.sonico.Controller..*.*(..))"/>-->
+		<!--<aop:aspect ref="exceptionAspect">-->
+			<!--<aop:before method="beforePrint" pointcut-ref="perform"/>-->
+			<!--<aop:after method="afterPrint" pointcut-ref="perform"/>-->
+			<!--<aop:after-returning method="afterReturnPrint" pointcut-ref="perform"/>-->
+			<!--<aop:around method="aroundPrint" pointcut-ref="perform"/>-->
+			<!--&lt;!&ndash;<aop:after-throwing method="throwingExcetion" pointcut-ref="perform" throwing="ex"/>&ndash;&gt;-->
+		<!--</aop:aspect>-->
+	<!--</aop:config>-->
+
+
+	<!--基于@AspectJ的aop-->
+	<aop:aspectj-autoproxy/>
+	<!--<bean id="aspect" class="me.sonico.Aspect.annotationAspect"/>-->
+	<bean id="logAspect" class="me.sonico.Aspect.LogAspect"/>
+
+
+
+</beans>
