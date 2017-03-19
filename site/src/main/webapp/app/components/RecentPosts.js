@@ -2,42 +2,38 @@
  * Created by Administrator on 2017/3/5 0005.
  */
 import React from "react";
-import Paper from 'material-ui/Paper';
+import Paper from "material-ui/Paper";
 import {List, ListItem} from "material-ui/List";
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentSend from 'material-ui/svg-icons/content/send';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-import Subheader from 'material-ui/Subheader';
-import ActionInfo from 'material-ui/svg-icons/action/info';
-import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import Divider from "material-ui/Divider";
+import FontIcon from "material-ui/FontIcon";
 const styles = {
   button: {
     // margin: 12,
   }
 };
+const iconStyles = {
+  // marginRight: 24,
+  fontSize:'18px'
+};
 const RecentPosts = () => (
-
-  <Paper zDepth={2} >
-      {/*<ListItem disabled={true} primaryText="Inbox" leftIcon={<ContentInbox />} />        <Divider/>*/}
-      {/*<Subheader leftAvatar={<ActionGrade/>}>Recent chats</Subheader>        <Divider/>*/}
-     <div style={{
-       padding:5,
-       marginLeft:5,
-       display:'flex',
-       alignItems:'center',
-     }}><ContentInbox /><p>test title</p></div>
+  <Paper zDepth={2}>
+    <div style={{
+      padding: 5,
+      marginLeft: 5,
+      display: 'flex',
+      alignItems: 'center',
+    }}><FontIcon className="material-icons md-light  md-48" style={iconStyles}>border_color</FontIcon>
+      <p> <b>Recent
+      Posts</b></p></div>
     <Divider/>
 
-      <ul>
-        <li> <a href="#">test 01</a></li>
+    <ul>
+      <li><a href="#">test 01</a></li>
 
-        <li> <a href="#">test 01</a></li>
-        <li> <a href="#">test 01</a></li>
-        <li> <a href="#">test 01</a></li>
-      </ul>
+      <li><a href="#">test 01</a></li>
+      <li><a href="#">test 01</a></li>
+      <li><a href="#">test 01</a></li>
+    </ul>
   </Paper>
 );
 

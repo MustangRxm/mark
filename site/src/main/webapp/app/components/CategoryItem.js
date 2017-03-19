@@ -17,8 +17,11 @@ alignItems:'center'
   }}>
     <a href="#">title</a>
     <Chip onTouchTap={handleTouchTap}
-          style={{marginTop:5,marginBottom:5,fontSize:5}}
-    >1</Chip>
+          style={{  display: 'flex',
+            alignItems: 'center',
+            marginRight: 10,
+            height: 15,marginTop:5,marginBottom:5,fontSize:5}}
+    ><p style={{fontSize:10,fontcolor:'#00ff00'}}>1</p></Chip>
   </div>
 );
 export default CategoryItem;

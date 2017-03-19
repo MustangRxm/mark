@@ -2,14 +2,18 @@
  * Created by Administrator on 2017/3/9 0009.
  */
 import React from "react";
-import Chip from 'material-ui/Chip';
-import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import TagsItem from './TagsItem';
+import Paper from "material-ui/Paper";
+import Divider from "material-ui/Divider";
+import TagsItem from "./TagsItem";
+import FontIcon from "material-ui/FontIcon";
 function handleTouchTap(){
 
 }
+const iconStyles = {
+  fontSize:'18px'
+};
+
+
 const Tags = () => (
   <Paper zDepth={2} >
 
@@ -17,14 +21,14 @@ const Tags = () => (
       padding:5,
       marginLeft:5,
       display:'flex',
-
       alignItems:'center',
-    }}><ContentInbox /><p>test title</p></div>
+    }}><FontIcon className="material-icons md-light  md-48" style={iconStyles} >label</FontIcon><p><b>Tags</b></p></div>
     <Divider/>
     <div style={{
       display:'flex',
       flexWrap:'wrap'
     }}>
+
     <TagsItem/>
     <TagsItem/>
     <TagsItem/>

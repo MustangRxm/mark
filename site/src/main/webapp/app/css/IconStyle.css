@@ -35,3 +35,12 @@
 /* Rules for using icons as white on a dark background. */
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+a{text-decoration:none;color: #4D6DAD}
+/*a.link{text-decoration: none}*/
+/*a:active {color: red;text-decoration:none; }*/
+/*a:visited {color: #67806b;text-decoration:none;}*/
+a:hover {color: #000000; text-decoration:none;background-color: whitesmoke}
+ul{color: #AAAAAA}
+/*#app{font-family: 'Roboto', sans-serif;}*/
+
+
