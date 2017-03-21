@@ -7,21 +7,35 @@ import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import CardItem from './CardItem'
 
-const MainBody = () => (
-  <div className="mainBody" style={{
-    display:'flex',
-    flexDirection:'column',
-    flex:4,
-    marginLeft:40
+// const MainBody = () => (
+export default class MainBody extends React.Component {
 
-  }}>
-{/*<Paper zDepth={2} >*/}
-  <CardItem /><br/>
-  <CardItem />
-  {/*<CardItem style={style}/>*/}
-{/*</Paper>*/}
-  </div>
+  render() {
+    return (
+      <div className="mainBody" style={{
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 4,
+        marginLeft: 40
 
+      }}>
+        {this.props.data.map(function (item,i) {
+              {/*console.log(item);*/}
+         return <div   key={i}>
+          <CardItem tagList={item.tagList}
+                    category={item.category}
+                    author={item.author}
+                    title={item.title}
+                    text={item.text}
+                    createDatetime={item.createDatetime}
 
-);
-export default MainBody;
+          /><br/> </div>
+        })}
+      </div>
+
+    );
+  }
+
+// );
+}
+// export default MainBody;

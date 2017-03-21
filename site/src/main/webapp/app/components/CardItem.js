@@ -1,13 +1,15 @@
 /**
  * Created by m1 on 17-3-2.
  */
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from "material-ui/Card";
+import FlatButton from "material-ui/FlatButton";
 import React from "react";
-import FontIcon from 'material-ui/FontIcon';
-import '../css/IconStyle.css';
-import {indigo100,grey700} from 'material-ui/styles/colors';
-import Chip from 'material-ui/Chip';
+import FontIcon from "material-ui/FontIcon";
+import "../css/IconStyle.css";
+import {indigo100, grey700} from "material-ui/styles/colors";
+import Chip from "material-ui/Chip";
+import injectTapEventPlugin from "react-tap-event-plugin";
+injectTapEventPlugin();
 // const subTitle = ()=>(
 //   <div>
 //     <a href="#">test</a>
@@ -31,8 +33,8 @@ const tagStyle = {
   marginRight: 10,
   height: 14
 };
-const tagFontStyle={
-  color:'#ffffff'
+const tagFontStyle = {
+  color: '#ffffff'
 };
 const SubTitle = React.createClass({
   render: function () {
@@ -41,57 +43,83 @@ const SubTitle = React.createClass({
         <div style={style}>
           <FontIcon className="material-icons md-light  md-48"
                     style={iconStyles}>date_range</FontIcon>
-          <p>2017-03-12</p>
+          <p>{this.props.createDatetime}</p>
         </div>
         <div style={style}>
           <FontIcon className="material-icons md-light  md-48"
                     style={iconStyles}>account_circle</FontIcon>
-          <p>account people</p>
+          <p>{this.props.author}</p>
         </div>
         <div style={style}>
           <FontIcon className="material-icons md-light  md-48"
                     style={iconStyles}>view_list</FontIcon>
-          <p>mycategory</p>
+          <p>{this.props.category}</p>
         </div>
       </div>
       <div style={style}>
         <FontIcon className="material-icons md-light  md-48" style={{
           fontSize: '18px',
-          marginRight:5
+          marginRight: 5
         }}>label</FontIcon>
-        <Chip backgroundColor={indigo100} style={tagStyle
-        }><p style={tagFontStyle}>66666</p></Chip>
-        <Chip backgroundColor={indigo100} style={tagStyle
-        }><p style={tagFontStyle}>66666</p></Chip>
+        {this.props.tagList.map(function (item,i) {
+          return <Chip key={i} backgroundColor={indigo100} style={tagStyle
+          }><p style={tagFontStyle}>{item}</p></Chip>
+        })}
+        {/*<Chip backgroundColor={indigo100} style={tagStyle*/}
+        {/*}><p style={tagFontStyle}>66666</p></Chip>*/}
+        {/*<Chip backgroundColor={indigo100} style={tagStyle*/}
+        {/*}><p style={tagFontStyle}>66666</p></Chip>*/}
       </div>
     </div>
       ;
   }
 });
-const CardItem = () => (
-  <Card>
-    <CardTitle title="Card title" subtitle={<SubTitle/>}/>
 
-    <CardText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-    </CardText>
+export default class CardItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: true,
+    };
+  }
 
-    <CardActions style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end'
-    }}>
+  handleExpandChange = (expanded) => {
+    // console.log('test ' + expanded);
+    this.setState({expanded: expanded});
+  };
+  // handleToggle = (event, toggle) => {
+  //   console.log('test ' + toggle);
+  //   this.setState({expanded: toggle});
+  // };
+  handleExpand = () => {
+    // console.log('onhandleExpand');
+    this.setState({expanded: !this.state.expanded});
+  };
 
-      <FlatButton icon={<FontIcon className="material-icons md-light  md-48" style={iconStyles}>
-        library_books</FontIcon>} label="Read All" style={{color:grey700}}/>
-    </CardActions>
-  </Card>
-
-
-);
-
-
-export default CardItem;
+  render() {
+    return (
+      <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+        <CardTitle
+          title={this.props.title} subtitle={
+            <SubTitle author={this.props.author}
+            createDatetime={this.props.createDatetime}
+                      category={this.props.category}
+                      tagList={this.props.tagList}
+            />}
+        />
+        <CardText expandable={true} >{this.props.text}
+        </CardText>
+        <CardActions style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end'
+        }}>
+          <FlatButton icon={
+            <FontIcon className="material-icons md-light  md-48" style={iconStyles}>
+            library_books</FontIcon>
+          } label="Read All" style={{color: grey700}} onTouchTap={this.handleExpand}/>
+        </CardActions>
+      </Card>
+    );
+  }
+}

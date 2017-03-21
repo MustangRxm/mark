@@ -11,6 +11,7 @@ import MHeader from './components/MHeader';
 import MFooter from './components/MFooter';
 import MainBody from './components/MainBody';
 import RightBody from './components/RightBody';
+
 const muiTheme = getMuiTheme({
   //支持很多控件的主题设置
   palette: {
@@ -32,19 +33,38 @@ const muiTheme = getMuiTheme({
     textColor:grey50
   }
 });
+var articleDataList=[
+  {
+    category:'目录A',
+    author:'authorA',
+    title:'titleA',
+    text:'I AM TEXT',
+    createDatetime:'2017-03-21',
+    tagList:['TG1','TG2']
+
+  },
+  {
+    category:'目录B',
+    author:'authorB',
+    title:'titleB',
+    text:'I AM TEXTB',
+    createDatetime:'2017-03-21',
+    tagList:['TG1B','TG2B']
+
+  }
+];
 const App = () => (
+
   <MuiThemeProvider
     muiTheme={muiTheme}
   >
-    <div style={ {
-
-    }}>
+    <div >
   <MHeader/>
     <div style={{
       display:'flex',
       marginTop:20
     }}>
-    <MainBody/>
+    <MainBody data={articleDataList}/>
     <RightBody />
     </div>
     <MFooter />
