@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 function handleTouchTap(){
-
+console.log('touch')
 }
 const TagsItem = () => (
 

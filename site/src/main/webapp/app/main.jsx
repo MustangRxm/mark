@@ -6,11 +6,13 @@ import React from 'react';
 import ReactDOM from 'react-dom'; //内部方法?
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {grey700,grey50,indigo100} from 'material-ui/styles/colors';
+import {grey700,grey50,indigo100,indigo300} from 'material-ui/styles/colors';
 import MHeader from './components/MHeader';
 import MFooter from './components/MFooter';
 import MainBody from './components/MainBody';
 import RightBody from './components/RightBody';
+import injectTapEventPlugin from "react-tap-event-plugin";
+injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
   //支持很多控件的主题设置
@@ -29,10 +31,11 @@ const muiTheme = getMuiTheme({
     textColor:grey50
   },
   chip:{
-    backgroundColor:indigo100,
+    backgroundColor:indigo300,
     textColor:grey50
   }
 });
+
 var articleDataList=[
   {
     category:'目录A',

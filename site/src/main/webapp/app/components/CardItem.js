@@ -6,10 +6,10 @@ import FlatButton from "material-ui/FlatButton";
 import React from "react";
 import FontIcon from "material-ui/FontIcon";
 import "../css/IconStyle.css";
-import {indigo100, grey700} from "material-ui/styles/colors";
+import {indigo100, grey700,grey900} from "material-ui/styles/colors";
 import Chip from "material-ui/Chip";
-import injectTapEventPlugin from "react-tap-event-plugin";
-injectTapEventPlugin();
+// import injectTapEventPlugin from "react-tap-event-plugin";
+// injectTapEventPlugin();
 // const subTitle = ()=>(
 //   <div>
 //     <a href="#">test</a>
@@ -62,7 +62,7 @@ const SubTitle = React.createClass({
           marginRight: 5
         }}>label</FontIcon>
         {this.props.tagList.map(function (item,i) {
-          return <Chip key={i} backgroundColor={indigo100} style={tagStyle
+          return <Chip key={i}  style={tagStyle
           }><p style={tagFontStyle}>{item}</p></Chip>
         })}
         {/*<Chip backgroundColor={indigo100} style={tagStyle*/}
@@ -100,7 +100,13 @@ export default class CardItem extends React.Component {
     return (
       <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
         <CardTitle
-          title={this.props.title} subtitle={
+          titleStyle={{
+            color:grey900,
+            fontSize:28,
+            fontWeight:'blod'
+          }}
+          title={this.props.title}
+          subtitle={
             <SubTitle author={this.props.author}
             createDatetime={this.props.createDatetime}
                       category={this.props.category}

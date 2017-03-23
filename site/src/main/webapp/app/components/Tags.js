@@ -22,7 +22,7 @@ const Tags = () => (
       marginLeft:5,
       display:'flex',
       alignItems:'center',
-    }}><FontIcon className="material-icons md-light  md-48" style={iconStyles} >label</FontIcon><p><b>Tags</b></p></div>
+    }}><FontIcon className="material-icons md-light  md-48" style={iconStyles} >label</FontIcon><h4>Tags</h4></div>
     <Divider/>
     <div style={{
       display:'flex',

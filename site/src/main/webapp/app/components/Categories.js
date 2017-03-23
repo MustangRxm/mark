@@ -11,24 +11,63 @@ const iconStyles = {
 
   fontSize:'18px'
 };
-const Categories = () => (
-<Paper zDepth={2} >
-  <div style={{
-    padding:5,
-    marginLeft:5,
-    display:'flex',
-    alignItems:'center',
-  }}> <FontIcon className="material-icons md-light  md-48" Style={iconStyles}>view_list</FontIcon>
 
-    <p><b>Categories</b></p></div>
-  <Divider/>
-  <CategoryItem/>
-  <Divider/>
-  <CategoryItem/>
-  <Divider/>
-  <CategoryItem/>
-</Paper>
-);
+export default class Categories extends React.Component{
+  constructor(props){
+    super(props);
+    this.setState({
+      dataList: []
+    });
+  }
+  // getInitialState(){
+  //   console.log('init');
+  //   return {
+  //     dataList: []
+  //   };
+  //
+  // }
+  // componentWillMount(){
+  //   this.setState({
+  //     dataList:[
+  //       {title:'i am title1',tagId:123,relNum:5},
+  //       {title:'i am title12',tagId:456,relNum:6},
+  //       {title:'i am title13',tagId:789,relNum:7}
+  //     ]
+  //   });
+  //   console.log(this.state.dataList);
+  //
+  // }
+  componentWillMount(){
+    // console.log('will mount');
+    this.setState({
+      dataList:[
+        {title:'i am title1',tagId:123,relNum:5},
+        {title:'i am title12',tagId:456,relNum:6},
+        {title:'i am title13',tagId:789,relNum:7}
+      ]
+    });
+  }
+  render (){
+    return (
+      <Paper zDepth={2} >
+        <div style={{
+          padding:5,
+          marginLeft:5,
+          display:'flex',
+          alignItems:'center',
+        }}> <FontIcon className="material-icons md-light  md-48" Style={iconStyles}>view_list</FontIcon>
 
-
-export default Categories;
+          <h4>Categories</h4></div>
+        <Divider/>
+        {this.state.dataList.map(function (item,i) {
+          return <CategoryItem key={i} title={item.title} tagId={item.tagId} relNum={item.relNum}/>
+        })}
+        {/*<CategoryItem/>*/}
+        {/*<Divider/>*/}
+        {/*<CategoryItem/>*/}
+        {/*<Divider/>*/}
+        {/*<CategoryItem/>*/}
+      </Paper>
+    );
+  };
+};
