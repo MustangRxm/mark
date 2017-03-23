@@ -38,12 +38,11 @@ export default class Categories extends React.Component{
   //
   // }
   componentWillMount(){
-    // console.log('will mount');
     this.setState({
       dataList:[
-        {title:'i am title1',tagId:123,relNum:5},
-        {title:'i am title12',tagId:456,relNum:6},
-        {title:'i am title13',tagId:789,relNum:7}
+        {title:'i am title1',tagId:123,relNum:5,href:'/t/n'},
+        {title:'i am title12',tagId:456,relNum:6,href:'/t/n'},
+        {title:'i am title13',tagId:789,relNum:7,href:'/t/n'}
       ]
     });
   }
@@ -60,7 +59,7 @@ export default class Categories extends React.Component{
           <h4>Categories</h4></div>
         <Divider/>
         {this.state.dataList.map(function (item,i) {
-          return <CategoryItem key={i} title={item.title} tagId={item.tagId} relNum={item.relNum}/>
+          return <CategoryItem key={i} href={item.href} title={item.title} tagId={item.tagId} relNum={item.relNum}/>
         })}
         {/*<CategoryItem/>*/}
         {/*<Divider/>*/}
